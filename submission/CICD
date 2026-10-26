@@ -15,10 +15,10 @@ Local results on 2026-10-26:
 - collectstatic: 170 files copied; 490 post-processed.
 
 Actual public Actions run:
-- URL: https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40271702729
-- Commit: 50526c3ef2f644b502d6b922ad9b963bfb7c5af3
+- URL: https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40271791472
+- Commit: f24a9fd568fb4688cefc78fb8d1eb96c1467d3fe
 - Event: push to main
-- Workflow: CI, run 4
+- Workflow: CI, run 5
 - Overall conclusion: success
 - Backend and frontend checks: success
 - Deployment gate: success; no webhook secret was configured
