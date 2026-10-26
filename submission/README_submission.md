@@ -12,8 +12,8 @@ The full project is public in [car-dealership-capstone](https://github.com/nguye
 |---:|---|---|---|
 | 1 | Full README and public README URL | PASS | Full project guide is public at the README URL below; commit 583615c. |
 | 2 | Django server and submission/django_server | PASS | Server started from server/; verified startup output recorded. |
-| 3 | About Us page | PARTIAL | Responsive page, CSS and local SVG are present and published. Genuine team names, roles, biographies and email addresses were not supplied, so the page says details are pending instead of inventing them. |
-| 4 | Contact Us page | PASS | Responsive Contact page has Contact Us active and uses the public issue tracker as its verified contact channel. Django static-file discovery now includes the built frontend assets, including this page and its CSS. |
+| 3 | About Us page | PARTIAL | Public GitHub handle and owner role are shown. A Pexels stock photo is clearly labeled illustrative and does not depict the owner. A verified personal name, email, and portrait are not published pending owner approval. |
+| 4 | Contact Us page | PARTIAL | Responsive Contact page has Contact Us active and shows the verified public GitHub profile and issue tracker. No support email or phone is published pending explicit owner approval. |
 | 5 | Login cURL and verified response | PARTIAL | Route, CSRF/session behavior, and response verified in automated tests; live cURL output/account not available. Template is in submission/loginuser. |
 | 6 | Logout cURL and invalidated session | PARTIAL | Logout response 200, subsequent session anonymous, repeat logout 401 in tests; live cURL output unavailable. |
 | 7 | Five-field registration component | PASS | Public Register.jsx has Username, First Name, Last Name, Email, Password and Register button; CSS/API dependencies are published. Frontend tests pass. |
