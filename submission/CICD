@@ -1,4 +1,4 @@
-STATUS: PARTIAL — workflow is implemented locally; no GitHub Actions run exists because the source and workflow have not been pushed to the public repository.
+STATUS: PASS — CI workflow was pushed and the actual GitHub Actions run completed successfully.
 
 Workflow: .github/workflows/ci.yml
 Checks:
@@ -14,10 +14,14 @@ Local results on 2026-10-26:
 - Django check --deploy: no issues with production environment variables supplied.
 - collectstatic: 170 files copied; 490 post-processed.
 
-After the workflow is pushed and run:
-1. Open the repository's Actions tab.
-2. Open the CI run for the evaluated commit.
-3. Verify the checks job completed successfully. A deploy job is intentionally skipped until the owner configures the provider webhook secret and dispatches the workflow.
-4. Record the real run URL, status, and commit SHA here. No Actions run URL is available yet.
+Actual public Actions run:
+- URL: https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40270658609
+- Commit: 583615c1e663ff6b6d97f0b6dee746277fcfeb29
+- Event: push to main
+- Workflow: CI, run 1
+- Overall conclusion: success
+- Backend and frontend checks: success
+- Deployment gate: success; no webhook secret was configured
+- Deploy job: skipped as designed because no provider webhook secret exists
 
 Local configuration validation: PyYAML parsed .github/workflows/ci.yml successfully. actionlint and Docker are unavailable here.
