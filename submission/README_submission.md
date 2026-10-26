@@ -2,7 +2,7 @@
 
 ## Current assessment
 
-The new Django/React project has been implemented in this workspace from the brief, following the owner's selection to build it from scratch. Backend/frontend checks pass. Final evaluation evidence still depends on publishing, a working real-data source, an owner-provided or created account, and a public deployment.
+The new Django/React project has been implemented from the brief and published to the public repository. Local backend/frontend checks and public GitHub Actions run 40270867062 passed. Remaining evaluation evidence depends on live dealership data and cURL access, genuine browser screenshots, and a configured public deployment.
 
 The full project is public in [car-dealership-capstone](https://github.com/nguyenbao140506-debug/car-dealership-capstone). The complete README and source were pushed to `main` in commit `583615c1e663ff6b6d97f0b6dee746277fcfeb29`. The GitHub Actions run for that commit completed successfully: backend/frontend checks passed; the deployment job was skipped because no provider webhook secret is configured.
 
@@ -32,7 +32,7 @@ The full project is public in [car-dealership-capstone](https://github.com/nguye
 | 20 | Dealer detail/reviews and dealer_id_reviews.png | PARTIAL | Detail/reviews UI/API are implemented; needs real dealer data and screenshot. |
 | 21 | Filled review form and dealership_review_submission.png | PARTIAL | Review form is implemented; screenshot requires a browser session and dealer. |
 | 22 | Persisted review and added_review.png | PARTIAL | Authenticated review creation/retrieval passes tests; screenshot requires a browser session and dealer. |
-| 23 | GitHub Actions and successful run | PASS | Actions run 40270658609 completed successfully for commit 583615c. The backend/frontend checks and deployment-gate jobs passed; deploy was skipped because no deploy webhook secret is configured. |
+| 23 | GitHub Actions and successful run | PASS | Actions run 40270867062 completed successfully for commit 57c0acc. The backend/frontend checks and deployment-gate jobs passed; deploy was skipped because no deploy webhook secret is configured. |
 | 24 | Real deployment URL | BLOCKED | Docker configuration and production settings are prepared; provider, credentials, persistent host and public domain are not configured. |
 | 25 | deployed_landingpage.png | BLOCKED | Requires a verified public deployment. |
 | 26 | deployed_loggedin.png | BLOCKED | Requires a verified deployment and account. |
@@ -59,14 +59,14 @@ Executed on 2026-10-26:
 - npm test -- --run — 2 tests passed after the static-file settings update.
 - npm run build — passed after the static-file settings update.
 - python manage.py runserver 127.0.0.1:8000 --noreload — startup succeeded; see submission/django_server.
-- GitHub Actions run 40270658609 — completed successfully at https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40270658609; backend/frontend checks success, deploy skipped by the missing webhook secret.
+- GitHub Actions run 40270867062 — completed successfully at https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40270867062; backend/frontend checks success, deploy skipped by the missing webhook secret.
 - Django request-client checks: homepage, About, Contact, admin login, and health returned HTTP 200. Empty dealer list/Kansas list returned HTTP 200 and []; ID 1 returned HTTP 404 because there are no dealer rows.
 - Sentiment endpoint returned the VADER response recorded in submission/analyzereview.
 - Live NHTSA vPIC requests returned HTTP 200: 195 car makes; Honda make ID 474 returned 361 models.
 - Dealer import attempted with Overpass: default host timed out, Private.coffee timed out, and maps.mail.ru returned HTTP 504. A direct Overpass API URL was also inaccessible via the web reader. No records were inserted.
-- PyYAML successfully parsed .github/workflows/ci.yml; actionlint and Docker are not installed. No Docker image build, GitHub Actions run, or public deployment was performed.
+- PyYAML successfully parsed .github/workflows/ci.yml; actionlint and Docker are not installed. No Docker image build or public deployment was performed. GitHub Actions run 40270867062 completed successfully; the deploy job was skipped because no webhook secret is configured.
 - Separate cURL calls could not reach the local dev server because the execution sandbox isolates loopback listeners. A same-command server/cURL smoke check also timed out from its parent shell. cURL templates are included; test-client verification is labeled accordingly.
-- Full source was pushed to public `main` at commit 583615c; GitHub Actions run 40270658609 completed successfully. GitHub CLI is not installed; GitHub integration is not needed for the verified push.
+- Full source was pushed to public `main` at commit 583615c and the submission status report was pushed at 57c0acc. GitHub Actions run 40270867062 completed successfully; deployment was skipped because no webhook secret is configured.
 
 ## Data and evidence integrity
 
@@ -90,7 +90,7 @@ No screenshots, cURL cookies, CSRF tokens, API keys, or deployment secrets were 
 - Public Contact page: https://github.com/nguyenbao140506-debug/car-dealership-capstone/blob/main/server/frontend/static/Contact.html (commit 4c9244c)
 - Public Register component: https://github.com/nguyenbao140506-debug/car-dealership-capstone/blob/main/server/frontend/src/components/Register/Register.jsx (commit 72e276e)
 - Full application source and README: https://github.com/nguyenbao140506-debug/car-dealership-capstone/tree/main (commit 583615c)
-- Successful GitHub Actions run: https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40270658609
+- Successful GitHub Actions run: https://github.com/nguyenbao140506-debug/car-dealership-capstone/actions/runs/40270867062
 - Public deployment URL: NONE — no deployment exists.
 - Git remote in this workspace: origin points to the public car-dealership-capstone repository; local master has no commits.
 
