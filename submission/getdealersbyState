@@ -1,0 +1,18 @@
+STATUS: PARTIAL — Kansas filtering is implemented and verified with a temporary Kansas test dealer. No real dealer records are in the local database because the OSM import did not succeed; the test transaction was rolled back. Raw cURL cannot reach the local server from this execution sandbox.
+
+Bash / Git Bash cURL command:
+~~~bash
+BASE_URL='http://127.0.0.1:8000'
+curl -sS -G \
+  --data-urlencode 'state=Kansas' \
+  -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/get_dealers"
+~~~
+
+Actual endpoint response verified through Django's request client on 2026-10-26 using a temporary test-only Kansas record:
+~~~text
+HTTP_STATUS=200
+[{"id":1,"source_id":"task11:temporary:kansas","name":"Temporary Kansas Filter Test Dealer","city":"Wichita","state":"Kansas","state_code":"KS","address":"Test-only address","phone":"","website":"","latitude":null,"longitude":null,"source_url":"","reviews":[]}]
+~~~
+
+The temporary record was rolled back; the local database still contains zero real dealers. This is application output from Django's request client, not captured cURL output. After importing OSM records, rerun the command to get actual Kansas dealers.

@@ -1,0 +1,25 @@
+STATUS: PARTIAL — live NHTSA data and the app proxy implementation are verified separately; cURL through the app's local server could not be executed because of loopback isolation.
+
+App endpoints:
+- GET /djangoapp/get_cars — makes
+- GET /djangoapp/get_cars?makeId=474 — models for Honda make ID 474
+
+Reusable app commands:
+~~~bash
+curl -i "$BASE_URL/djangoapp/get_cars"
+curl -i "$BASE_URL/djangoapp/get_cars?makeId=474"
+~~~
+
+Live upstream cURL commands verified on 2026-10-26:
+~~~bash
+curl -i 'https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json'
+curl -i 'https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/474?format=json'
+~~~
+
+Actual upstream results:
+~~~text
+Makes: HTTP 200, Count 195; first results ASTON MARTIN (440), TESLA (441), JAGUAR (442).
+Honda models: HTTP 200, Count 361; first results Accord (1861), Civic (1863), Pilot (1864).
+~~~
+
+The app proxy returns source=NHTSA vPIC, count, and makes[] or models[]. The automated test verifies that make data is forwarded using a mocked upstream response; the live upstream requests above are separate from app-proxy verification. The app returns HTTP 502 rather than substituting sample data if NHTSA is unavailable.

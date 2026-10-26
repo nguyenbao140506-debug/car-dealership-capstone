@@ -1,0 +1,20 @@
+STATUS: BLOCKED — production packaging is prepared, but no cloud provider, credentials, deployment webhook, or live deployment URL was supplied or configured.
+
+Verified public deployment URL: NONE.
+
+Prepared configuration:
+- Dockerfile builds the Vite frontend and runs Django with Gunicorn as a non-root user.
+- compose.yaml persists SQLite data in the dealership-data volume.
+- Production settings require DJANGO_SECRET_KEY, DJANGO_DEBUG=0, allowed hosts, HTTPS CSRF trusted origins, secure cookies, HTTPS redirect, HSTS, and WhiteNoise static files.
+- Health endpoint: /djangoapp/health.
+- CI deploy job requires an owner-configured DEPLOY_WEBHOOK_URL secret and manual workflow_dispatch.
+
+Local deployment steps:
+1. Copy server/.env.example to server/.env.
+2. Set a generated DJANGO_SECRET_KEY, DJANGO_DEBUG=0, DJANGO_ALLOWED_HOSTS, and DJANGO_CSRF_TRUSTED_ORIGINS.
+3. Install Docker Desktop / Docker Compose on the owner machine.
+4. Run docker compose up --build from the repository root and verify /djangoapp/health.
+5. Select/configure a public HTTPS hosting provider, persistent storage, domain/routing, and secrets.
+6. Verify the public site in a browser before adding its URL here.
+
+Docker was not installed in this execution environment, so image build/start was not run. Never use the local URL as a public deployment URL.

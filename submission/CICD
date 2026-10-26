@@ -1,0 +1,23 @@
+STATUS: PARTIAL — workflow is implemented locally; no GitHub Actions run exists because the source and workflow have not been pushed to the public repository.
+
+Workflow: .github/workflows/ci.yml
+Checks:
+- Python 3.13 dependency installation, compileall, Django check, migration drift check, migrations, and backend tests.
+- Node 24/npm ci, frontend tests, and production build.
+- Production Django deployment checks and collectstatic.
+- Deployment is gated behind workflow_dispatch and a configured DEPLOY_WEBHOOK_URL secret.
+
+Local results on 2026-10-26:
+- Backend tests: 10 passed.
+- Frontend tests: 2 passed.
+- Frontend production build: passed.
+- Django check --deploy: no issues with production environment variables supplied.
+- collectstatic: 170 files copied; 490 post-processed.
+
+After the workflow is pushed and run:
+1. Open the repository's Actions tab.
+2. Open the CI run for the evaluated commit.
+3. Verify the checks job completed successfully. A deploy job is intentionally skipped until the owner configures the provider webhook secret and dispatches the workflow.
+4. Record the real run URL, status, and commit SHA here. No Actions run URL is available yet.
+
+Local configuration validation: PyYAML parsed .github/workflows/ci.yml successfully. actionlint and Docker are unavailable here.

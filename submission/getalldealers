@@ -1,0 +1,16 @@
+STATUS: PARTIAL — GET /djangoapp/get_dealers is implemented and verified. The local database currently has zero dealer records because the OpenStreetMap Overpass import failed; the real response is therefore an empty list, not sample dealer data. A separate cURL process could not reach the local server from this execution sandbox.
+
+Bash / Git Bash command:
+~~~bash
+BASE_URL='http://127.0.0.1:8000'
+curl -sS -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/get_dealers"
+~~~
+
+Actual endpoint response verified with Django's request client on 2026-10-26:
+~~~text
+HTTP_STATUS=200
+[]
+~~~
+
+Local database check: DEALER_COUNT=0. Once real dealer records are imported, rerun the same cURL command to capture the returned list. Do not use test fixtures as real dealership output.

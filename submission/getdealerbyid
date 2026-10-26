@@ -1,0 +1,17 @@
+STATUS: PARTIAL — GET /djangoapp/get_dealers/<id> is implemented and verified using a temporary test-only dealer. The local database has zero real dealers, and the test transaction was rolled back. This execution sandbox also blocks separate cURL processes from reaching its local server.
+
+Bash / Git Bash command (replace DEALER_ID with an ID returned by GET /djangoapp/get_dealers):
+~~~bash
+BASE_URL='http://127.0.0.1:8000'
+DEALER_ID='your_real_dealer_id'
+curl -sS -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/get_dealers/$DEALER_ID"
+~~~
+
+Actual endpoint response verified through Django's request client on 2026-10-26 for temporary test-only ID 1:
+~~~text
+HTTP_STATUS=200
+{"id":1,"source_id":"task10:temporary:dealer","name":"Temporary Detail Test Dealer","city":"Wichita","state":"Kansas","state_code":"KS","address":"Test-only address","phone":"","website":"","latitude":null,"longitude":null,"source_url":"","reviews":[]}
+~~~
+
+The test-only dealer was rolled back; DEALER_COUNT is 0. Do not submit ID 1 as a currently available real dealer. After importing real records, use one of their IDs to capture the cURL response required by the rubric.

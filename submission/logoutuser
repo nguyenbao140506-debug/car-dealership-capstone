@@ -1,0 +1,35 @@
+STATUS: PARTIAL — logout and session invalidation were verified with Django's request client. The cURL command below is ready to run in the same shell/cookie jar as submission/loginuser, but this execution sandbox prevents separate cURL processes from reaching the local server. No password, session cookie, or CSRF token is saved here.
+
+Verified route:
+POST /djangoapp/logout
+Requires the authenticated session cookie and a fresh CSRF token from GET /djangoapp/csrf.
+
+Bash / Git Bash cURL command (run after a successful login using the same COOKIE_JAR and BASE_URL):
+~~~bash
+CSRF_JSON="$(curl -fsS -b "$COOKIE_JAR" -c "$COOKIE_JAR" "$BASE_URL/djangoapp/csrf")"
+CSRF_TOKEN="$(printf '%s' "$CSRF_JSON" | python -c "import json,sys; print(json.load(sys.stdin)['csrfToken'])")"
+
+curl -sS -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
+  -H "X-CSRFToken: $CSRF_TOKEN" \
+  -X POST \
+  -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/logout"
+
+curl -sS -b "$COOKIE_JAR" \
+  -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/session"
+rm -f "$COOKIE_JAR"
+~~~
+
+Verified output on 2026-10-26 using a temporary valid user and Django's request client. The user was deleted after the check; the password was generated in memory and is not recorded.
+~~~text
+LOGIN_STATUS=200
+LOGOUT_STATUS=200
+LOGOUT_BODY={"message":"Logout successful."}
+SESSION_STATUS=200
+SESSION_BODY={"authenticated":false,"user":null}
+SECOND_LOGOUT_STATUS=401
+SECOND_LOGOUT_BODY={"detail":"No authenticated session."}
+~~~
+
+This is actual application output from the Django request client, not a captured cURL response. To capture raw cURL output, run the commands above while the Django server is running in the same environment.

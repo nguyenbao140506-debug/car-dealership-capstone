@@ -1,0 +1,37 @@
+STATUS: PARTIAL — the login endpoint and successful session result were verified with Django's request client. The cURL command below is ready to run against a local server, but this execution sandbox prevents separate cURL processes from reaching the server's loopback listener. No real password, cookie, or CSRF token is saved here.
+
+Verified route and request:
+POST /djangoapp/login
+Content-Type: application/json
+JSON fields: username, password
+Requires a CSRF token from GET /djangoapp/csrf and the corresponding session cookie.
+
+Bash / Git Bash cURL command (use a valid account already registered in this app; set credentials in the environment, not in this file):
+~~~bash
+export BASE_URL='http://127.0.0.1:8000'
+export APP_TEST_USERNAME='your_valid_username'
+export APP_TEST_PASSWORD='your_valid_password'
+COOKIE_JAR="$(mktemp)"
+CSRF_JSON="$(curl -fsS -c "$COOKIE_JAR" "$BASE_URL/djangoapp/csrf")"
+CSRF_TOKEN="$(printf '%s' "$CSRF_JSON" | python -c "import json,sys; print(json.load(sys.stdin)['csrfToken'])")"
+
+curl -sS -b "$COOKIE_JAR" -c "$COOKIE_JAR" \
+  -H 'Content-Type: application/json' \
+  -H "X-CSRFToken: $CSRF_TOKEN" \
+  --data "{\"username\":\"$APP_TEST_USERNAME\",\"password\":\"$APP_TEST_PASSWORD\"}" \
+  -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/login"
+
+curl -sS -b "$COOKIE_JAR" -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/session"
+rm -f "$COOKIE_JAR"
+~~~
+
+Successful login result actually verified on 2026-10-26 through Django's request client using a temporary valid user. That user was deleted after the check; its password was generated in memory and is not recorded.
+~~~text
+HTTP_STATUS=200
+{"message":"Login successful.","user":{"id":2,"username":"task5-login-check","first_name":"","last_name":"","email":""}}
+SESSION={"authenticated":true,"user":{"id":2,"username":"task5-login-check","first_name":"","last_name":"","email":""}}
+~~~
+
+The displayed response is actual application output from the Django request client, not a captured cURL response. To capture cURL output locally, run the commands above while the Django server is running in the same environment.

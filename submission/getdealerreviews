@@ -1,0 +1,19 @@
+STATUS: PARTIAL — endpoint response was verified with one test-only dealer and review using Django's request client. Raw cURL could not reach the local server from this execution sandbox, and the temporary data was rolled back. The real local database still contains zero dealers/reviews.
+
+Bash / Git Bash cURL command (use an ID returned by GET /djangoapp/get_dealers after importing real OSM records):
+~~~bash
+BASE_URL='http://127.0.0.1:8000'
+DEALER_ID='your_real_dealer_id'
+curl -sS -G \
+  --data-urlencode "dealerId=$DEALER_ID" \
+  -w '\nHTTP_STATUS=%{http_code}\n' \
+  "$BASE_URL/djangoapp/get_reviews"
+~~~
+
+Verified endpoint output from a temporary test-only dealer ID 1 on 2026-10-26:
+~~~text
+HTTP_STATUS=200
+[{"id":1,"dealer":1,"dealer_name":"Temporary Review Test Dealer","author":"task8-review-check","text":"Helpful service and a clear buying process.","created_at":"2026-10-26T03:59:56.679121Z"}]
+~~~
+
+This is real response data produced by the application request client; it is not a captured cURL response or a real OSM dealer. The test transaction was rolled back, and a follow-up check confirmed dealer_count=0 and review_count=0. Do not submit ID 1 as a currently available production dealer. To get the required real output, import OSM dealers, create or submit an actual review, then run the cURL command with that dealer's ID.

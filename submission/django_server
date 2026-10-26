@@ -1,0 +1,20 @@
+STATUS: PASS — Django development server started successfully from the backend directory.
+
+Working directory:
+C:\Users\ADMIN\Documents\ChatGPT\cou2\server
+
+Command executed:
+$env:WT_SESSION='codex-local-verification'; python -u manage.py runserver 127.0.0.1:8000 --noreload
+
+Verified startup output:
+Performing system checks...
+System check identified no issues (0 silenced).
+October 26, 2026 - 10:32:43
+Django version 5.2.18, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+WT_SESSION avoids a sandbox-only Django color-detection attempt to read a protected Windows registry key. On a normal local terminal, run the simpler command shown in README.md:
+python manage.py runserver
+
+The server process itself started. This execution sandbox isolates its loopback listener from later command invocations, so separate cURL-over-HTTP calls could not connect here; endpoint behavior was verified with Django's test client and automated tests.
